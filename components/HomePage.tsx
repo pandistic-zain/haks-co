@@ -156,6 +156,9 @@ export function HomePage() {
 
       gsap.registerPlugin(ScrollTrigger);
       gsap.ticker.lagSmoothing(520, 18);
+      const lenis = window.__lenis;
+      const syncScrollTrigger = () => ScrollTrigger.update();
+      lenis?.on("scroll", syncScrollTrigger);
 
       const ctx = gsap.context(() => {
         const setStoryProgress = (value: number) => {
@@ -393,6 +396,7 @@ export function HomePage() {
       }, scopeElement);
 
       cleanup = () => {
+        lenis?.off("scroll", syncScrollTrigger);
         craftTimelineRef.current?.timeline.kill();
         craftTimelineRef.current?.trigger.kill();
         craftTimelineRef.current = null;
