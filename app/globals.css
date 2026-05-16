@@ -58,7 +58,15 @@ button {
   }
 
   .nav-glass {
-    @apply fixed left-0 top-0 z-50 grid w-full grid-cols-[1fr_auto_1fr] items-center border-b border-white/5 bg-black/[0.35] px-5 py-3 backdrop-blur-xl md:px-10 lg:px-14;
+    @apply fixed left-0 top-0 z-50 grid w-full grid-cols-[1fr_auto_1fr] items-center px-5 py-3 transition-all duration-300 md:px-10 lg:px-14;
+  }
+
+  .nav-top {
+    @apply border-b border-transparent bg-transparent backdrop-blur-0;
+  }
+
+  .nav-scrolled {
+    @apply border-b border-white/10 bg-black/[0.78] shadow-[0_10px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl;
   }
 
   .brand-wordmark {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
+import { ProductCard } from "@/components/ProductCard";
 import { WatchModel, WatchModelController } from "@/components/three/WatchModel";
 import {
   CurrencyCode,
@@ -527,35 +528,38 @@ export function HomePage() {
               className="relative z-10 grid w-full items-center gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:gap-10"
             >
               <div className="max-w-none pr-0 lg:pr-8">
-                <p className="eyebrow">Interactive Preview</p>
-                <h2 className="display-title max-w-[15ch] text-balance text-[clamp(2rem,4.2vw,4.25rem)] leading-[0.94]">
+                <p className="mb-5 inline-flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-emberLight/95">
+                  <span className="inline-block h-px w-10 bg-ember/70" />
+                  Interactive Preview
+                </p>
+                <h2 className="font-serif max-w-[13ch] text-balance text-[clamp(2.4rem,4.8vw,5.1rem)] font-semibold leading-[0.88] tracking-[-0.03em] text-white">
                   The Masterpiece Up Close
                 </h2>
-                <p className="body-copy mt-5 max-w-[52ch] text-[clamp(1rem,1.15vw,1.35rem)] leading-[1.55]">
+                <p className="mt-6 max-w-[50ch] text-[clamp(1.08rem,1.25vw,1.42rem)] font-medium leading-[1.72] text-white/[0.68]">
                   Scroll through a guided narrative from architecture to wrist presence. The watch intentionally drops
                   lower through each chapter to reveal silhouette, structure, and mechanical identity.
                 </p>
 
-                <div className="mt-8 border-t border-white/10 pt-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-emberLight">
+                <div className="mt-10 border-t border-white/10 pt-7">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.24em] text-emberLight">
                     Chapter {craftChapterIndex + 1} / {craftChapters.length}
                   </p>
-                  <h3 className="mt-3 max-w-[18ch] font-serif text-[clamp(2.1rem,3.2vw,3.7rem)] leading-[0.95] text-white">
+                  <h3 className="mt-3 max-w-[15ch] font-serif text-[clamp(2.4rem,3.45vw,4.25rem)] font-medium leading-[0.92] tracking-[-0.02em] text-white">
                     {craftChapters[craftChapterIndex].title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-white/[0.7] md:text-base">
+                  <p className="mt-5 max-w-[44ch] text-[clamp(1.02rem,1.08vw,1.26rem)] leading-[1.6] text-white/[0.7]">
                     {craftChapters[craftChapterIndex].description}
                   </p>
-                  <p className="mt-3 text-[0.72rem] uppercase tracking-[0.18em] text-white/[0.48]">
+                  <p className="mt-4 text-[0.78rem] font-semibold uppercase tracking-[0.19em] text-white/[0.42]">
                     {craftChapterIndex === 0 && "Opening the silhouette and outer case stance"}
                     {craftChapterIndex === 1 && "Reframing toward dial depth and visual hierarchy"}
                     {craftChapterIndex === 2 && "Dropping lower for crown mechanics and side detailing"}
                     {craftChapterIndex === 3 && "Final wrist-level posture and balanced profile reveal"}
                   </p>
-                  <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
+                  <div className="mt-7 h-2 w-full overflow-hidden rounded-full bg-white/[0.08]">
                     <div
                       ref={craftProgressBarRef}
-                      className="h-full origin-left scale-x-0 bg-ember"
+                      className="h-full origin-left scale-x-0 bg-gradient-to-r from-ember to-emberLight"
                     />
                   </div>
                 </div>
@@ -589,42 +593,18 @@ export function HomePage() {
             </p>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-3">
             {products.map((product, index) => {
               const link = productLinks[index];
 
               return (
-                <motion.article
+                <ProductCard
                   key={product.id}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.62, delay: index * 0.08 }}
-                  className="group relative overflow-hidden border border-white/[0.055] bg-white/[0.018] px-5 pb-9 pt-2 text-center transition duration-500 hover:-translate-y-2 hover:bg-white/[0.035]"
-                >
-                  <div className="absolute inset-x-8 top-8 h-28 bg-ember/[0.15] blur-3xl transition duration-500 group-hover:bg-ember/25" />
-                  <WatchModel
-                    className="relative mx-auto h-64 w-full"
-                    targetSize={2.82}
-                    cameraZ={6.8}
-                    initialRotationY={product.rotation}
-                    autoRotateSpeed={0.006 + index * 0.002}
-                    interactive={false}
-                    allowZoom={false}
-                  />
-                  <h3 className="mt-[-1.25rem] font-serif text-3xl font-semibold leading-none text-white">{product.name}</h3>
-                  <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-white/[0.58]">{product.description}</p>
-                  <p className="mt-5 text-xs uppercase tracking-[0.2em] text-emberLight">{product.finish}</p>
-                  <div className="mt-5 font-serif text-3xl font-semibold text-white">
-                    {link.price}
-                    <span className="mt-1 block font-sans text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-emberLight">
-                      Free worldwide shipping
-                    </span>
-                  </div>
-                  <Link href={link.href} className="outline-button mt-7">
-                    Buy Now
-                  </Link>
-                </motion.article>
+                  product={product}
+                  price={link.price}
+                  href={link.href}
+                  index={index}
+                />
               );
             })}
           </div>
