@@ -34,7 +34,7 @@ export function CraftTourSection({
     <section id="craftsmanship" ref={craftSectionRef} className="relative bg-[#080808]">
       <div
         ref={craftPinRef}
-        className="relative flex w-full overflow-visible px-5 py-8 md:px-10 lg:px-20"
+        className="pointer-events-none relative flex w-full overflow-visible px-5 py-8 md:px-10 lg:px-20"
         style={{
           height: `calc(100dvh - ${navHeight}px)`
         }}
@@ -92,16 +92,16 @@ export function CraftTourSection({
             </div>
           </div>
 
-          <div className="relative z-20">
+          <div className="pointer-events-none relative z-20">
             <div className="h-[min(58vh,560px)] w-full overflow-visible">
               <div className="origin-top translate-y-16 scale-[1.24] md:translate-y-20 md:scale-[1.34]">
                 <WatchModel
                   ref={watchTourRef}
-                  className="h-full w-full"
+                  className="pointer-events-none h-full w-full"
                   targetSize={4.35}
                   cameraZ={7.15}
                   autoRotateSpeed={0}
-                  allowZoom
+                  allowZoom={false}
                   interactive={false}
                 />
               </div>

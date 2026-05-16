@@ -70,15 +70,15 @@ export function ProductCard({ product, price, href, index }: ProductCardProps) {
       transition={{ duration: 0.58, delay: index * 0.08 }}
       className="group relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.028),rgba(255,255,255,0.01)_38%,rgba(0,0,0,0.24))] px-5 pb-8 pt-3 text-center shadow-[0_14px_36px_rgba(0,0,0,0.24)] transition duration-300 hover:-translate-y-1 hover:border-ember/30"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(139,32,56,0.23),transparent_52%)] opacity-90 transition duration-300 group-hover:opacity-100" />
-      <div className="absolute inset-x-5 top-4 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(139,32,56,0.23),transparent_52%)] opacity-90 transition duration-300 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute inset-x-5 top-4 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 top-[48%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="relative mx-auto -mt-3 h-80 w-full overflow-hidden">
+      <div className="pointer-events-none relative mx-auto -mt-3 h-80 w-full overflow-hidden">
         <div className="h-full">
           <WatchModel
             ref={modelRef}
-            className="h-full w-full"
+            className="pointer-events-none h-full w-full"
             targetSize={preset.targetSize}
             cameraZ={preset.cameraZ}
             initialRotationY={preset.rotationY}
@@ -92,14 +92,14 @@ export function ProductCard({ product, price, href, index }: ProductCardProps) {
       <h3 className="relative z-10 mt-[-4.15rem] font-serif text-[clamp(1.75rem,2.05vw,2.2rem)] font-semibold leading-[0.98] tracking-[-0.012em] text-white">
         {product.name}
       </h3>
-      <p className="mx-auto mt-2.5 max-w-xs text-[0.98rem] leading-7 text-white/[0.62]">
+      <p className="relative z-10 mx-auto mt-2.5 max-w-xs text-[0.98rem] leading-7 text-white/[0.62]">
         {product.description}
       </p>
-      <p className="mt-4 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-emberLight">
+      <p className="relative z-10 mt-4 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-emberLight">
         {product.finish}
       </p>
 
-      <div className="mt-5 font-serif text-[clamp(2.05rem,2.5vw,2.55rem)] font-semibold leading-none text-white">
+      <div className="relative z-10 mt-5 font-serif text-[clamp(2.05rem,2.5vw,2.55rem)] font-semibold leading-none text-white">
         {price}
         <span className="mt-2 block font-sans text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-emberLight/95">
           Free worldwide shipping
@@ -108,7 +108,7 @@ export function ProductCard({ product, price, href, index }: ProductCardProps) {
 
       <Link
         href={href}
-        className="mt-6 inline-flex min-w-[150px] items-center justify-center rounded-full border border-ember/70 bg-transparent px-7 py-3 text-[0.69rem] font-bold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ember/90 hover:shadow-ember"
+        className="pointer-events-auto relative z-20 mt-6 inline-flex min-w-[150px] items-center justify-center rounded-full border border-ember/70 bg-transparent px-7 py-3 text-[0.69rem] font-bold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ember/90 hover:shadow-ember"
       >
         Buy Now
       </Link>

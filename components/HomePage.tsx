@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { CraftTourSection } from "@/components/CraftTourSection";
+import { LegacySection } from "@/components/LegacySection";
 import { ProductCard } from "@/components/ProductCard";
 import { SkipTourButton } from "@/components/SkipTourButton";
 import { WatchModelController } from "@/components/three/WatchModel";
@@ -545,55 +546,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="legacy" className="craft-grid grid gap-10 bg-obsidian px-5 py-24 md:px-10 lg:grid-cols-2 lg:px-20">
-          <div className="gsap-rise max-w-xl">
-            <p className="eyebrow">Signature Collection</p>
-            <h2 className="display-title text-[clamp(3rem,5vw,4.8rem)]">Timeless Maroon Elegance</h2>
-            <p className="body-copy mt-7">
-              Inspired by heritage luxury watch houses with a bold contemporary presence. Designed to feel powerful,
-              elite, and unforgettable.
-            </p>
-          </div>
-
-          <div className="grid gap-6">
-            {valueCards.map((card) => (
-              <div key={card.title} className="gsap-rise glass-panel p-8 md:p-11">
-                <h3 className="font-serif text-4xl font-semibold text-white">{card.title}</h3>
-                <p className="body-copy mt-3">{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section
-          className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-cover bg-center px-5 py-24 text-center"
-          style={{ backgroundImage: "url(/images/p3.png)" }}
-        >
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.55),rgba(0,0,0,0.88))]" />
-          <div className="relative z-10 mx-auto max-w-3xl">
-            <p className="eyebrow">Limited Edition Presence</p>
-            <h2 className="display-title text-[clamp(3rem,7vw,5.5rem)]">Crafted For The Extraordinary</h2>
-            <p className="mt-6 text-base leading-8 text-white/[0.74]">
-              A statement of success, sophistication, and timeless ambition.
-            </p>
-          </div>
-        </section>
-
-        <section className="grid gap-6 bg-obsidian px-5 py-24 md:px-10 lg:grid-cols-3 lg:px-20">
-          {pillars.map((pillar) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.55 }}
-              className="glass-panel p-8 md:p-11"
-            >
-              <h3 className="font-serif text-[clamp(2.3rem,4vw,3.4rem)] font-semibold leading-none text-white">{pillar.title}</h3>
-              <p className="body-copy mt-5">{pillar.description}</p>
-            </motion.div>
-          ))}
-        </section>
+        <LegacySection cards={valueCards} pillars={pillars} />
       </main>
 
       {showSkipTour && !tourCompleted && tourReady && tourInView && (
@@ -603,6 +556,17 @@ export function HomePage() {
       <footer className="bg-[#020202] px-5 py-16 text-center text-white/[0.45]">
         <div className="font-serif text-4xl font-semibold tracking-[0.18em] text-white">HAKS & CO</div>
         <p className="mt-4 text-sm">Luxury Watch House 2026</p>
+        <p className="mt-2 text-xs uppercase tracking-[0.22em] text-white/55">
+          Proposal Presented By{" "}
+          <a
+            href="https://loopmtech.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-white transition hover:text-emberLight"
+          >
+            loopmtech.com
+          </a>
+        </p>
       </footer>
     </div>
   );
