@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
+import { CraftTourSection } from "@/components/CraftTourSection";
 import { ProductCard } from "@/components/ProductCard";
-import { WatchModel, WatchModelController } from "@/components/three/WatchModel";
+import { SkipTourButton } from "@/components/SkipTourButton";
+import { WatchModelController } from "@/components/three/WatchModel";
 import {
   CurrencyCode,
   articleSlides,
@@ -232,7 +234,7 @@ export function HomePage() {
           rotY: -0.95,
           rotZ: -0.2,
           posX: isMobileTour ? 0.03 : 0.06,
-          posY: isMobileTour ? -0.34 : -0.44,
+          posY: isMobileTour ? -0.78 : -0.92,
           scale: isMobileTour ? 0.92 : 0.96,
           camX: 0,
           camY: isMobileTour ? 0.08 : 0.12,
@@ -274,7 +276,7 @@ export function HomePage() {
         apply();
 
         const timeline = gsap.timeline({
-          defaults: { ease: "power2.inOut" },
+          defaults: { ease: "none" },
           scrollTrigger: {
             id: "craft-tour",
             trigger: craftSectionRef.current,
@@ -287,9 +289,9 @@ export function HomePage() {
             pin: craftPinRef.current,
             pinType: "fixed",
             pinSpacing: true,
-            scrub: 1.05,
+            scrub: true,
             anticipatePin: 1,
-            fastScrollEnd: true,
+            fastScrollEnd: false,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const chapterCount = craftChapters.length;
@@ -325,51 +327,50 @@ export function HomePage() {
               setTourInView(false);
               setCompleted(true);
               setStoryProgress(1);
-              watchTourRef.current?.setInteractive(true);
-              watchTourRef.current?.resetToIdle();
+              watchTourRef.current?.setInteractive(false);
             }
           }
         });
 
         const k = isMobileTour
           ? {
-              p1: -0.52,
-              p2: -0.8,
-              p3: -1.04,
-              p4: -1.24,
-              c1: 7.35,
-              c2: 7.1,
-              c3: 6.95,
-              c4: 7.55,
-              y1: 0.04,
-              y2: -0.08,
-              y3: -0.18,
-              y4: -0.28
+              p1: -0.68,
+              p2: -0.84,
+              p3: -1.0,
+              p4: -0.78,
+              c1: 7.0,
+              c2: 6.82,
+              c3: 6.74,
+              c4: 7.08,
+              y1: 0.03,
+              y2: -0.02,
+              y3: -0.06,
+              y4: 0.02
             }
           : {
-              p1: -0.68,
-              p2: -1.02,
-              p3: -1.34,
-              p4: -1.64,
-              c1: 7.45,
-              c2: 7.1,
-              c3: 6.85,
-              c4: 8.05,
+              p1: -0.82,
+              p2: -1.0,
+              p3: -1.18,
+              p4: -0.9,
+              c1: 7.2,
+              c2: 6.92,
+              c3: 6.82,
+              c4: 7.28,
               y1: 0.02,
-              y2: -0.12,
-              y3: -0.24,
-              y4: -0.36
+              y2: -0.04,
+              y3: -0.08,
+              y4: 0.02
             };
 
         timeline
-          .to(state, { rotY: -0.42, rotX: 0.34, posX: -0.08, posY: k.p1, scale: 1.03, duration: 1.2, onUpdate: apply }, 0)
-          .to(state, { camZ: k.c1, camX: -0.18, camY: k.y1, key: 5.8, ember: 3.1, panelGlow: 0.3, duration: 1.2, onUpdate: apply }, 0)
-          .to(state, { rotY: 0.25, rotX: 0.21, posX: 0.18, posY: k.p2, scale: 1.08, duration: 1.2, onUpdate: apply }, 1)
-          .to(state, { camZ: k.c2, camX: 0.16, camY: k.y2, fill: 3.0, key: 5.6, panelGlow: 0.36, duration: 1.2, onUpdate: apply }, 1)
-          .to(state, { rotY: 1.16, rotX: 0.28, rotZ: -0.26, posX: 0.1, posY: k.p3, scale: 1.1, duration: 1.2, onUpdate: apply }, 2)
-          .to(state, { camZ: k.c3, camX: 0.32, camY: k.y3, ember: 3.4, ambient: 2.2, panelGlow: 0.42, duration: 1.2, onUpdate: apply }, 2)
-          .to(state, { rotY: 2.15, rotX: 0.3, rotZ: -0.18, posX: 0, posY: k.p4, scale: 0.98, duration: 1.2, onUpdate: apply }, 3)
-          .to(state, { camZ: k.c4, camX: 0, camY: k.y4, key: 4.95, fill: 2.35, ember: 2.45, ambient: 2.75, panelGlow: 0.25, duration: 1.2, onUpdate: apply }, 3);
+          .to(state, { rotY: 0.12, rotX: 0.22, rotZ: -0.05, posX: -0.05, posY: k.p1, scale: 1.08, duration: 1.2, onUpdate: apply }, 0)
+          .to(state, { camZ: k.c1, camX: -0.08, camY: k.y1, key: 5.85, ember: 2.9, panelGlow: 0.3, duration: 1.2, onUpdate: apply }, 0)
+          .to(state, { rotY: 0.58, rotX: 0.18, rotZ: -0.04, posX: 0.08, posY: k.p2, scale: 1.12, duration: 1.2, onUpdate: apply }, 1)
+          .to(state, { camZ: k.c2, camX: 0.1, camY: k.y2, fill: 3.05, key: 5.75, panelGlow: 0.34, duration: 1.2, onUpdate: apply }, 1)
+          .to(state, { rotY: 0.92, rotX: 0.2, rotZ: -0.07, posX: 0.04, posY: k.p3, scale: 1.14, duration: 1.2, onUpdate: apply }, 2)
+          .to(state, { camZ: k.c3, camX: 0.16, camY: k.y3, ember: 3.15, ambient: 2.45, panelGlow: 0.38, duration: 1.2, onUpdate: apply }, 2)
+          .to(state, { rotY: 0.44, rotX: 0.18, rotZ: -0.03, posX: 0, posY: k.p4, scale: 1.06, duration: 1.2, onUpdate: apply }, 3)
+          .to(state, { camZ: k.c4, camX: 0, camY: k.y4, key: 5.35, fill: 2.8, ember: 2.55, ambient: 2.7, panelGlow: 0.28, duration: 1.2, onUpdate: apply }, 3);
 
         const trigger = timeline.scrollTrigger;
         if (trigger) {
@@ -507,82 +508,16 @@ export function HomePage() {
           </div>
         </section>
 
-        <section
-          id="craftsmanship"
-          ref={craftSectionRef}
-          className="relative bg-[#080808]"
-        >
-          <div
-            ref={craftPinRef}
-            className="relative flex w-full overflow-hidden px-5 py-8 md:px-10 lg:px-20"
-            style={{
-              height: `calc(100dvh - ${navHeight}px)`
-            }}
-          >
-            <div
-              ref={craftPanelRef}
-              className="absolute inset-y-0 right-0 w-2/3 bg-[radial-gradient(ellipse_at_72%_50%,rgba(139,32,56,0.22),transparent_62%)] transition-[background] duration-500"
-            />
-
-            <div
-              className="relative z-10 grid w-full items-center gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:gap-10"
-            >
-              <div className="max-w-none pr-0 lg:pr-8">
-                <p className="mb-5 inline-flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-emberLight/95">
-                  <span className="inline-block h-px w-10 bg-ember/70" />
-                  Interactive Preview
-                </p>
-                <h2 className="font-serif max-w-[13ch] text-balance text-[clamp(2.4rem,4.8vw,5.1rem)] font-semibold leading-[0.88] tracking-[-0.03em] text-white">
-                  The Masterpiece Up Close
-                </h2>
-                <p className="mt-6 max-w-[50ch] text-[clamp(1.08rem,1.25vw,1.42rem)] font-medium leading-[1.72] text-white/[0.68]">
-                  Scroll through a guided narrative from architecture to wrist presence. The watch intentionally drops
-                  lower through each chapter to reveal silhouette, structure, and mechanical identity.
-                </p>
-
-                <div className="mt-10 border-t border-white/10 pt-7">
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.24em] text-emberLight">
-                    Chapter {craftChapterIndex + 1} / {craftChapters.length}
-                  </p>
-                  <h3 className="mt-3 max-w-[15ch] font-serif text-[clamp(2.4rem,3.45vw,4.25rem)] font-medium leading-[0.92] tracking-[-0.02em] text-white">
-                    {craftChapters[craftChapterIndex].title}
-                  </h3>
-                  <p className="mt-5 max-w-[44ch] text-[clamp(1.02rem,1.08vw,1.26rem)] leading-[1.6] text-white/[0.7]">
-                    {craftChapters[craftChapterIndex].description}
-                  </p>
-                  <p className="mt-4 text-[0.78rem] font-semibold uppercase tracking-[0.19em] text-white/[0.42]">
-                    {craftChapterIndex === 0 && "Opening the silhouette and outer case stance"}
-                    {craftChapterIndex === 1 && "Reframing toward dial depth and visual hierarchy"}
-                    {craftChapterIndex === 2 && "Dropping lower for crown mechanics and side detailing"}
-                    {craftChapterIndex === 3 && "Final wrist-level posture and balanced profile reveal"}
-                  </p>
-                  <div className="mt-7 h-2 w-full overflow-hidden rounded-full bg-white/[0.08]">
-                    <div
-                      ref={craftProgressBarRef}
-                      className="h-full origin-left scale-x-0 bg-gradient-to-r from-ember to-emberLight"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <WatchModel
-                  ref={watchTourRef}
-                  className="h-[360px] w-full md:h-[min(58vh,560px)]"
-                  targetSize={4}
-                  cameraZ={8}
-                  allowZoom
-                  interactive={false}
-                />
-                <p className="mt-4 text-center text-xs uppercase tracking-[0.16em] text-white/[0.36]">
-                  {tourCompleted
-                    ? "Tour complete. Drag to inspect the watch."
-                    : "Scroll to continue the guided cinematic tour."}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CraftTourSection
+          navHeight={navHeight}
+          craftSectionRef={craftSectionRef}
+          craftPinRef={craftPinRef}
+          craftPanelRef={craftPanelRef}
+          craftProgressBarRef={craftProgressBarRef}
+          watchTourRef={watchTourRef}
+          craftChapterIndex={craftChapterIndex}
+          craftChapters={craftChapters}
+        />
 
         <section id="collections" className="bg-obsidian px-5 py-24 md:px-10 lg:px-20">
           <div className="mx-auto mb-16 max-w-3xl text-center">
@@ -662,13 +597,7 @@ export function HomePage() {
       </main>
 
       {showSkipTour && !tourCompleted && tourReady && tourInView && (
-        <button
-          type="button"
-          onClick={handleSkipTour}
-          className="fixed bottom-6 right-6 z-[120] rounded-full border border-white/[0.2] bg-black/[0.75] px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_10px_40px_rgba(0,0,0,0.45)] transition hover:-translate-y-0.5 hover:bg-ember/75"
-        >
-          Skip Tour
-        </button>
+        <SkipTourButton onClick={handleSkipTour} />
       )}
 
       <footer className="bg-[#020202] px-5 py-16 text-center text-white/[0.45]">
